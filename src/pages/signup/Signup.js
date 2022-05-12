@@ -15,7 +15,6 @@ export default function Signup() {
         const selected = e.target.files[0]
         console.log(selected)
 
-        if (!selected) return setThumbnailError('Please select a file')
         if (!selected.type.includes('image')) return setThumbnailError('Selected file must be an image')
         if (selected.size > 100000) return setThumbnailError('Max file size is 100kb')
 

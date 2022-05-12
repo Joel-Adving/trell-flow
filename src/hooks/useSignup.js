@@ -22,19 +22,25 @@ export const useSignup = () => {
             }
 
             // upload user thumbnail
-            const uploadPath = `thumbnails/${res.user.uid}/${thumbnail.name}`
-            const img = await storage.ref(uploadPath).put(thumbnail)
-            const imgUrl = await img.ref.getDownloadURL()
+            let uploadPath, img, imgUrl
+            if (thumbnail) {
+                uploadPath = `thumbnails/${res.user.uid}/${thumbnail.name}`
+                img = await storage.ref(uploadPath).put(thumbnail)
+                imgUrl = await img.ref.getDownloadURL()
+            }
 
             // add display name to user
-            await res.user.updateProfile({ displayName, photoURL: imgUrl })
+            await res.user.updateProfile({ displayName, photoURL: imgUrl ?? '' })
 
             // create user document
-            await db.collection('users').doc(res.user.uid).set({
-                online: true,
-                displayName,
-                photoURL: imgUrl,
-            })
+            await db
+                .collection('users')
+                .doc(res.user.uid)
+                .set({
+                    online: true,
+                    displayName,
+                    photoURL: imgUrl ?? '',
+                })
 
             // dispatch login action
             dispatch({ type: 'LOGIN', payload: res.user })

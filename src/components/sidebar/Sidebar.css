@@ -55,10 +55,11 @@
     .sidebar-content {
         position: relative;
     }
-    .sidebar .links {
+    .sidebar nav .links {
         margin: 0;
         padding: 1.5rem;
         padding-top: 1rem;
+        display: flex;
     }
 
     .sidebar .links a.active {
@@ -69,5 +70,22 @@
 
     .sidebar .user {
         padding: 1.5rem;
+    }
+}
+
+.right-links {
+    display: flex;
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 34rem) {
+    .sidebar nav .links {
+        flex-direction: column-reverse;
+    }
+
+    .right-links {
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
     }
 }

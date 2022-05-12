@@ -9,9 +9,12 @@ import Navbar from './components/navbar/Navbar'
 import Sidebar from './components/sidebar/Sidebar'
 import { useAuthContext } from './hooks/useAuthContext'
 import OnlineUsers from './components/onlineUsers/OnlineUsers'
+import useWindowDimensions from './hooks/useWindowDimensions'
 
 function App() {
     const { user, authIsReady } = useAuthContext()
+    const { windowDimensions } = useWindowDimensions()
+    const { width } = windowDimensions
 
     return (
         <div className="App">
@@ -19,7 +22,7 @@ function App() {
                 <BrowserRouter>
                     <Sidebar />
                     <div className="container">
-                        <Navbar />
+                        {width && width > 1180 && <Navbar />}
                         <Switch>
                             <Route exact path="/">
                                 <Dashboard />
@@ -41,7 +44,8 @@ function App() {
                             </Route>
                         </Switch>
                     </div>
-                    <OnlineUsers />
+
+                    {width && width > 768 && <OnlineUsers />}
                 </BrowserRouter>
             )}
         </div>

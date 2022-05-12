@@ -17,7 +17,7 @@ export default function OnlineUsers() {
                             style={user.online ? { background: 'green' } : { background: 'gray' }}
                         />
                         <span>{user.displayName}</span>
-                        <Avatar src={user.photoURL} />
+                        {user.photoURL && <Avatar src={user.photoURL} />}
                     </div>
                 ))}
         </div>
